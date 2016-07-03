@@ -1,0 +1,19 @@
+FROM centos:7
+MAINTAINER Jeff Sheng
+
+#RUN yum install -y update
+RUN yum install -y epel-release
+RUN yum install -y nodejs npm
+#RUN yum install -y vim
+
+RUN mkdir /usr/share/Webserver_Soap
+ENV NODEW /usr/share/Webserver_Soap
+
+COPY  $PWD/Webserver_Soap $NODEW
+# RUN cd /src; npm install --production
+
+WORKDIR $NODEW
+
+EXPOSE 32767
+CMD ["node","server"]
+
