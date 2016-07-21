@@ -1,19 +1,23 @@
-FROM centos:7
+FROM node:4.4.7
 MAINTAINER Jeff Sheng
 
-#RUN yum install -y update
-RUN yum install -y epel-release
-RUN yum install -y nodejs npm
-#RUN yum install -y vim
+#RUN cat /etc/resolv.conf
+#RUN echo 7 > /etc/yum/vars/releasever && yum repolist
+#RUN yum install -y epel-release
+#RUN yum install -y nodejs npm vim && mkdir /usr/share/Webserver_Soap
 
 RUN mkdir /usr/share/Webserver_Soap
+
 ENV NODEW /usr/share/Webserver_Soap
 
-COPY  $PWD/Webserver_Soap $NODEW
-# RUN cd /src; npm install --production
+COPY $PWD/Webserver_Soap_Phone_chiu $NODEW
 
 WORKDIR $NODEW
 
 EXPOSE 32767
+
 CMD ["node","server"]
 
+
+# base OS : Ubuntu
+# wanna dev Centos 7 ver.
