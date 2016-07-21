@@ -1,26 +1,21 @@
-FROM node:4.4.7
+FROM centos:7
 MAINTAINER Jeff Sheng
 
-#RUN cat /etc/resolv.conf
-#RUN echo 7 > /etc/yum/vars/releasever && yum repolist
-#RUN yum install -y epel-release
-#RUN yum install -y nodejs npm vim && mkdir /usr/share/Webserver_Soap
+RUN  cd /usr/local/src && yum install -y wget gcc gcc-c++ vim make\
+        && wget https://nodejs.org/dist/v4.4.7/node-v4.4.7.tar.gz \
+        && tar zxvf node-v4.4.7.tar.gz
 
-RUN mkdir /usr/share/Webserver_Soap
-
+RUN cd /usr/local/src/node-v4.4.7 && ./configure && make && make install \
+        && echo $(node -v) && mkdir /usr/share/Webserver_Soap
 ENV NODEW /usr/share/Webserver_Soap
-
 COPY $PWD/Webserver_Soap_Phone_chiu $NODEW
 
 WORKDIR $NODEW
 
-EXPOSE 32767
-
 CMD ["node","server"]
 
 
-# base OS : Ubuntu
-# wanna dev Centos 7 ver.
+# base OS : centos:7
 
 # make sure that
 #  Elas  hostname : Elas_Mas
