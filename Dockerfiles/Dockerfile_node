@@ -21,3 +21,7 @@ CMD ["node","server"]
 
 # base OS : Ubuntu
 # wanna dev Centos 7 ver.
+
+# make sure that
+#  Elas  hostname : Elas_Mas
+#  Redis hostname : R_Server
