@@ -2,12 +2,12 @@
 
 mkdir r_data
 
-# ES
-docker run -d --name es_QQ_master -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.node.name="QQ_master"\
+# ES - Heap_size:2g
+docker run -d --name es_QQ_master -e ES_HEAP_SIZE=2g -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.node.name="QQ_master" \
   -Des.cluster.name="EyeSocial_cluster for PhoneChiu"
-docker run -d --name es_QQ_nodeI  --link es_QQ_master:Elas_Mas -p 9201:9200 -p 9301:9300 jeffsheng/es_labber\
+docker run -d --name es_QQ_nodeI  -e ES_HEAP_SIZE=2g --link es_QQ_master:Elas_Mas -p 9201:9200 -p 9301:9300 jeffsheng/es_labber \
   -Des.cluster.name="EyeSocial_cluster for PhoneChiu" -Des.node.name="QQ_node-I" -Des.discovery.zen.ping.unicast.hosts="Elas_Mas"
-docker run -d --name es_QQ_nodeII --link es_QQ_master:Elas_Mas -p 9202:9200 -p 9302:9300 jeffsheng/es_labber\
+docker run -d --name es_QQ_nodeII -e ES_HEAP_SIZE=2g --link es_QQ_master:Elas_Mas -p 9202:9200 -p 9302:9300 jeffsheng/es_labber \
   -Des.cluster.name="EyeSocial_cluster for PhoneChiu" -Des.node.name="QQ_node-II" -Des.discovery.zen.ping.unicast.hosts="Elas_Mas"
 
 echo "ES container done."
@@ -24,3 +24,6 @@ docker run -d --name webserver --link es_QQ_master:Elas_Mas --link redis_server:
 
 echo "Node.js Webserver done."
 echo "Done!!"
+
+
+
