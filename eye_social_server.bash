@@ -29,10 +29,10 @@ echo "Done!!"
 
 
 # ES 跨主機
-docker run -d --name es_QQ_master -e ES_HEAP_SIZE=2g --net=host -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.node.name="QQ_master" \
-  -Des.cluster.name="EyeSocial_cluster for AirforceI"
-docker run -d --name es_QQ_nodeI  -e ES_HEAP_SIZE=2g --net=host -p 9200:9200 -p 9300:9300 jeffsheng/es_labber \
-  -Des.cluster.name="EyeSocial_cluster for AirforceI" -Des.node.name="QQ_node-I" -Des.discovery.zen.ping.unicast.hosts="master_ip"
-docker run -d --name es_QQ_nodeII -e ES_HEAP_SIZE=2g  -p 9200:9200 -p 9300:9300 jeffsheng/es_labber \
-  -Des.cluster.name="EyeSocial_cluster for AirforceI" -Des.node.name="QQ_node-II" -Des.discovery.zen.ping.unicast.hosts="master_ip"
+# docker run -d --name es_QQ_master -e ES_HEAP_SIZE=2g --net=host -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.node.name="QQ_master" \
+  # -Des.cluster.name="EyeSocial_cluster for AirforceI"
+# docker run -d --name es_QQ_nodeI  -e ES_HEAP_SIZE=2g --net=host -p 9200:9200 -p 9300:9300 jeffsheng/es_labber \
+  # -Des.cluster.name="EyeSocial_cluster for AirforceI" -Des.node.name="QQ_node-I" -Des.discovery.zen.ping.unicast.hosts="master_ip"
+# docker run -d --name es_QQ_nodeII -e ES_HEAP_SIZE=2g  -p 9200:9200 -p 9300:9300 jeffsheng/es_labber \
+  # -Des.cluster.name="EyeSocial_cluster for AirforceI" -Des.node.name="QQ_node-II" -Des.discovery.zen.ping.unicast.hosts="master_ip"
 

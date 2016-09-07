@@ -1,0 +1,10 @@
+AP server:
+docker run -d --name webserver --link redis_server:R_Server -w /webserver \
+-v $PWD/EyeSocial_webserver:/webserver -p 32767:32767 docker.io/jeffsheng/node_labber node server
+
+UncleJ :
+docker run -d --name UncleJ -p 8080:8080 -p 50000:50000 -v $PWD/jenkins_home:/var/jenkins_home jenkins
+
+ES : 
+docker run -d --name es_QQ_master -v $PWD/ik:/usr/share/elasticsearch/plugins/ik -e ES_HEAP_SIZE=4g -p 9200:9200 -p 9300:9300 jeffsheng/es_labber_new -Des.node.name="QQ_master" \
+  -Des.cluster.name="EyeSocial_cluster release Ver."

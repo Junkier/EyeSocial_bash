@@ -51,6 +51,6 @@ docker run -d --name es_QQ_nodeII -e ES_HEAP_SIZE=2g  -p 9200:9200 -p 9300:9300 
 -v $PWD/ik:/usr/share/elasticsearch/plugins/ik
 
 
-docker run -d --name es_QQ_master --network="host" -e ES_HEAP_SIZE=4g -v $PWD/ik:/usr/share/elasticsearch/plugins/ik -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.cluster.name="EyeSocial_cluster for POC" -Des.node.name="QQ_master" 
+docker run -d --name es_QQ_master --network="host" -e ES_HEAP_SIZE=4g -v $PWD/ik:/usr/share/elasticsearch/plugins/ik -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.cluster.name="EyeSocial_cluster release ver." -Des.node.name="QQ_master" 
 docker run -d --name es_QQ_nodeI  -e ES_HEAP_SIZE=2g -v $PWD/ik:/usr/share/elasticsearch/plugins/ik --net=host -p 9200:9200 -p 9300:9300 jeffsheng/es_labber -Des.cluster.name="EyeSocial_cluster for POC" -Des.node.name="QQ_node-I" -Des.discovery.zen.ping.unicast.hosts="192.168.142.68"
 
