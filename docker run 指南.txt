@@ -1,10 +1,34 @@
 AP server:
-docker run -d --name webserver --link redis_server:R_Server -w /webserver \
--v $PWD/EyeSocial_webserver:/webserver -p 32767:32767 docker.io/jeffsheng/node_labber node server
+
+docker run -d --name webserver -w /webserver \
+-v $PWD/eyesocial_webserver:/webserver -p 32767:32767 docker.io/jeffsheng/node_labber:6.9.1 node server
+    ( --link redis_server:R_Server )
+
+分析 server :
+docker run -d --name anal_server -w /anal_server -v $PWD/eyes_anal_server:/anal_server -p 32777:32777 docker.io/jeffsheng/node_labber node analysis_server
+
+# 注意:
+用 -v 將 webserver mount 上去 Container 後，直接在外部修改內容即可，不必走入到Container中
+(唉呦 好像直接看webserver那包的log就好了QQ)
 
 UncleJ :
 docker run -d --name UncleJ -u root -p 8080:8080 -p 50000:50000 -v $PWD/jenkins_home:/var/jenkins_home jenkins
 
+Redis:
+docker run -d --name redis_server -v $PWD/r_data:/data redis redis-server --appendonly yes
+
 ES : 
-docker run -d --name es_QQ_master -v $PWD/ik:/usr/share/elasticsearch/plugins/ik -e ES_HEAP_SIZE=4g -p 9200:9200 -p 9300:9300 jeffsheng/es_labber_new -Des.node.name="QQ_master" \
-  -Des.cluster.name="EyeSocial_cluster release Ver."
+docker run -d --name es_QQ_master -v $PWD/ik:/usr/share/elasticsearch/plugins/ik -v $PWD/es_data:/usr/share/elasticsearch/data \
+-e ES_HEAP_SIZE=4g -p 9200:9200 -p 9300:9300 jeffsheng/es_labber_new -Des.node.name="QQ_master" \
+-Des.cluster.name="EyeSocial Production." --network.publish_host="ur_ip" 
+  (-Des.discovery.zen.ping.unicast.hosts="master_ip")
+  (用了沒反應= = -Des.bootstrap.memory_lock=true)
+  (記得，host上要mount 的 endpoint ，權限要打開!!!)
+  
+# 注意:
+1) ES container restart 的時候，ik 包還是要在才可以QQ  
+
+
+Analyze server:
+docker run -d --name anal_server -w /anal_server -v $PWD/EyeSocial_analysis:/anal_server -p 32777:32777 docker.io/jeffsheng/node_labber node analysis_server 
+  
